@@ -3,6 +3,22 @@ import scanpy as sc
 import pandas as pd
 import numpy as np
 
+
+########################### general #################################################################################
+def randomize_cells(anndata_object):
+    "Randomize cells for plotting "
+    index_list = np.arange(anndata_object.shape[0])
+    np.random.shuffle(index_list)
+    anndata_object = anndata_object[index_list]
+    return anndata_object
+
+def overlap_coefficient(set_a,set_b):
+    min_len = min([len(set_a),len(set_b)])
+    intersect_len = len(set_a.intersection(set_b))
+    overlap = intersect_len/min_len
+    return overlap
+
+
 def calculate_optimal_PC(adata, min_PC = 50, min_var=25, n_comps=100, use_hv=None):
     'select number of PCs based on min_PC and min_var threshold'
     import matplotlib.pyplot as plt
